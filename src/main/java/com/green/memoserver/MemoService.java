@@ -1,8 +1,12 @@
 package com.green.memoserver;
 
+import com.green.memoserver.model.MemoGetReq;
+import com.green.memoserver.model.MemoGetRes;
 import com.green.memoserver.model.MemoPostReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -11,6 +15,10 @@ public class MemoService {
 
     public int save(MemoPostReq p) {
         return memoMapper.save(p);
+    }
+
+    public List<MemoGetRes> findAll(MemoGetReq req) {
+        return memoMapper.findAll(req);
     }
 
 }

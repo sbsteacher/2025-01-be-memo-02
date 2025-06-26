@@ -1,11 +1,14 @@
 package com.green.memoserver;
 
 import com.green.memoserver.model.MemoGetReq;
+import com.green.memoserver.model.MemoGetRes;
 import com.green.memoserver.model.MemoPostReq;
 import com.green.memoserver.model.MemoPutReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -25,18 +28,9 @@ public class MemoController {
 
     //Read
     @GetMapping
-    public String getMemo(@ModelAttribute MemoGetReq req) {
-//    public String getMemo(@RequestParam(name = "search_text", required = false) String searchText
-//                        , @RequestParam(required = false) Integer page) {
-        //log.info("search={}, page={}", searchText, page);
-//        MemoGetReq req = MemoGetReq.builder()
-//                                   .page(page)
-//                                   .searchText(searchText)
-//                                   .build();
-        //memoService.getMomoList(searchText, page);
-        //memoService.getMomoList(req);
+    public List<MemoGetRes> getMemo(@ModelAttribute MemoGetReq req) {
         log.info("req={}", req);
-        return "메모 리스트";
+        return memoService.findAll(req);
     }
 
     @GetMapping("{memoId}")
