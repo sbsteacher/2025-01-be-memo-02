@@ -1,5 +1,6 @@
 package com.green.memoserver;
 
+import com.green.memoserver.model.MemoGetOneRes;
 import com.green.memoserver.model.MemoGetReq;
 import com.green.memoserver.model.MemoGetRes;
 import com.green.memoserver.model.MemoPostReq;
@@ -19,6 +20,14 @@ public class MemoService {
 
     public List<MemoGetRes> findAll(MemoGetReq req) {
         return memoMapper.findAll(req);
+    }
+
+    public MemoGetOneRes findById(int id) {
+        return memoMapper.findById(id);
+    }
+
+    public int deleteById(int id) {
+        return memoMapper.deleteById(id);
     }
 
 }

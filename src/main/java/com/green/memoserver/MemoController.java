@@ -1,9 +1,6 @@
 package com.green.memoserver;
 
-import com.green.memoserver.model.MemoGetReq;
-import com.green.memoserver.model.MemoGetRes;
-import com.green.memoserver.model.MemoPostReq;
-import com.green.memoserver.model.MemoPutReq;
+import com.green.memoserver.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +31,9 @@ public class MemoController {
     }
 
     @GetMapping("{memoId}")
-    public String getMemo(@PathVariable int memoId) {
+    public MemoGetOneRes getMemo(@PathVariable int memoId) {
         log.info("memoId={}", memoId);
-        return "메모 하나";
+        return memoService.findById(memoId);
     }
 
 
@@ -49,8 +46,8 @@ public class MemoController {
 
     //Delete
     @DeleteMapping
-    public String deleteMemo(@RequestParam(name = "memo_id") int memoId) {
+    public int deleteMemo(@RequestParam(name = "memo_id") int memoId) {
         log.info("memoId={}", memoId);
-        return "삭제 성공";
+        return memoService.deleteById(memoId);
     }
 }
