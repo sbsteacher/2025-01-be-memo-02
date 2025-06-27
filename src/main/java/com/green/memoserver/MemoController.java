@@ -1,5 +1,6 @@
 package com.green.memoserver;
 
+import com.green.memoserver.config.model.ResultResponse;
 import com.green.memoserver.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,37 +18,42 @@ public class MemoController {
 
     //Create
     @PostMapping
-    public String postMemo(@RequestBody MemoPostReq req) { //JSON로 넘어오는구나
+    public ResultResponse<Integer> postMemo(@RequestBody MemoPostReq req) { //JSON로 넘어오는구나
         log.info("req={}", req);
-        int result =  memoService.save(req);
-        return result == 1 ? "저장 성공" : "저장 실패";
+        int result = memoService.save(req);
+        return new ResultResponse<>("삽입 성공", result);
     }
 
     //Read
     @GetMapping
-    public List<MemoGetRes> getMemo(@ModelAttribute MemoGetReq req) {
+    public ResultResponse<List<MemoGetRes>> getMemo(@ModelAttribute MemoGetReq req) {
         log.info("req={}", req);
-        return memoService.findAll(req);
+        List<MemoGetRes> result = memoService.findAll(req);
+        String message = String.format("rows: %d", result.size());
+        return new ResultResponse<>(message, result);
     }
 
     @GetMapping("{memoId}")
-    public MemoGetOneRes getMemo(@PathVariable int memoId) {
+    public ResultResponse<MemoGetOneRes> getMemo(@PathVariable int memoId) {
         log.info("memoId={}", memoId);
-        return memoService.findById(memoId);
+        MemoGetOneRes result = memoService.findById(memoId);
+        return new ResultResponse<>("조회 성공", result);
     }
 
 
     //Update
     @PutMapping
-    public String putMemo(@RequestBody MemoPutReq req) { //JSON로 넘어오는구나
+    public ResultResponse<Integer> putMemo(@RequestBody MemoPutReq req) { //JSON로 넘어오는구나
         log.info("req={}", req);
-        return "수정 성공";
+        int result = memoService.modify(req);
+        return new ResultResponse<>("수정 성공", result);
     }
 
     //Delete
     @DeleteMapping
-    public int deleteMemo(@RequestParam(name = "memo_id") int memoId) {
+    public ResultResponse<Integer> deleteMemo(@RequestParam(name = "memo_id") int memoId) {
         log.info("memoId={}", memoId);
-        return memoService.deleteById(memoId);
+        int result = memoService.deleteById(memoId);
+        return new ResultResponse<>("삭제 성공", result);
     }
 }
