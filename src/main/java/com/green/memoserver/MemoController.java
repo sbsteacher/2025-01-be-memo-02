@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 //공통 URL
-@RequestMapping("api/memo")
+@RequestMapping("/api/memo")
 public class MemoController {
     private final MemoService memoService;
 
@@ -33,7 +33,7 @@ public class MemoController {
         return new ResultResponse<>(message, result);
     }
 
-    @GetMapping("{memoId}")
+    @GetMapping("/{memoId}")
     public ResultResponse<MemoGetOneRes> getMemo(@PathVariable int memoId) {
         log.info("memoId={}", memoId);
         MemoGetOneRes result = memoService.findById(memoId);
