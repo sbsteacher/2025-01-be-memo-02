@@ -40,7 +40,7 @@ public class MemoController {
         return new ResultResponse<>("조회 성공", result);
     }
 
-    @GetMapping("/ddd")
+    @GetMapping("/ddd/ddd")
     public String ddd() {
         return "ddd";
     }
